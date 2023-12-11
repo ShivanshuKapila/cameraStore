@@ -22,6 +22,23 @@
     <!-- Main Stylesheets  -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var commonContentContainer = document.getElementById("commonContentContainer");
+            var xhr = new XMLHttpRequest();
+    
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        commonContentContainer.innerHTML = xhr.responseText;
+                    }
+                }
+            };
+    
+            xhr.open("GET", "common-section.html", true);
+            xhr.send();
+        });
+    </script>
 
 </head>
 
@@ -126,51 +143,10 @@
     </div>
     <!-- /Mobile Search-field -->
 
-    <!--============== Side-bar Section ==============-->
+    <!-- <iframe src="common-section.html" width="100%" height="200px" frameborder="0"></iframe> -->
     <aside id="sidebar">
-        <div class="sidebar_head">
-            <h5 class="mb-0"><i class="bi bi-person-circle me-2"></i> Hello, Log in</h5>
-            <div class="close_btn sidebar_close" title="Close">
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-
-        <div class="sidebar_body">
-            <div class="drop_down">
-                <div class="d-flex justify-content-between align-items-center drop_down_head">
-                    <span><i class="bi bi-camera me-2"></i> All Products</span>
-                    <i class="bi bi-plus"></i>
-                </div>
-                <ul class="mt-2 drop_down_body">
-                    <li><a href='/#popular'>DSLR Cameras</a></li>
-                    <li><a href='/#popular'>Mirrorless Cameras</a></li>
-                    <li><a href='/#popular'>Action Cameras</a></li>
-                    <li><a href='/#popular'>Compact Cameras</a></li>
-                    <li><a href='/#popular'>Camcorders</a></li>
-                    <li><a href='/#popular'>Lenses</a></li>
-                    <li><a href='/#popular'>Accessories</a></li>
-                </ul>
-            </div>
-
-            <ul class="mb-0 ps-0 sidebar_list">
-                <li><i class="bi bi-bag-check me-2"></i> <a href="javascript:void(0);">My Orders</a></li>
-                <li><i class="bi bi-heart me-2"></i> <a href="javascript:void(0);">My Wishlist</a></li>
-                <li><i class="bi bi-person me-2"></i> <a href="javascript:void(0);">My Account</a></li>
-                <li><i class="bi bi-geo-alt me-2"></i> <a href="javascript:void(0);">Order Tracking</a></li>
-                <li><i class="bi bi-headset me-2"></i> <a href="javascript:void(0);">Help & Support</a></li>
-            </ul>
-        </div>
-
-        <div class="sidebar_foot">
-            <p class="mb-0">
-                &#169;
-                <script>
-                    document.write(new Date().getFullYear() + ' ');
-                </script>
-                Camera Store. All Rights Reserved.
-            </p>
-        </div>
+        <!-- <div data-include="common-section.html"></div>  -->
+        <div id="commonContentContainer"></div>
     </aside>
     <!-- /Side-bar Section -->
 
@@ -203,6 +179,9 @@
                             class="row justify-content-sm-evenly justify-content-around align-items-center gx-0 mx-xl-4 mx-lg-2 py-4 cart_item">
                             <div class="col-3 px-md-4 px-sm-0">
                                 <img src="assets/img/popular/2.png" alt="">
+                            </div>
+                            <div class="empty-cart-message text-center" style="display: none;">
+                                <p>Your cart is empty.</p>
                             </div>
                             <div class="col-md-8 col-7 ms-md-4">
                                 <div class="d-flex justify-content-between cart_title">
@@ -283,6 +262,7 @@
                         <div class="cart_payment_block">
                             <h5>Payment Details</h5>
                             <div class="d-flex justify-content-between mt-4">
+                                <span>Amount added</span>
                                 <span>$3715</span>
                             </div>
                             <div class="d-flex justify-content-between my-2">
@@ -478,6 +458,48 @@
     <script src="assets/swiper/swiper-bundle.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/main.js"></script>
+<!-- Add this script for remove functionality -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get all elements with the class 'bi-x-lg' (remove icon)
+        var removeIcons = document.querySelectorAll(".bi-x-lg");
+
+        // Loop through each remove icon
+        removeIcons.forEach(function (icon) {
+            // Add a click event listener to each remove icon
+            icon.addEventListener("click", function () {
+                // Get the parent element of the remove icon (cart item)
+                var cartItem = icon.closest(".cart_item");
+
+                // Remove the cart item from the DOM
+                cartItem.remove();
+                
+
+                // Recalculate the total amount
+                updateTotalAmount();
+            });
+        });
+
+        // Function to update the total amount after removing an item
+        function updateTotalAmount() {
+            // Get all cart prices
+            var cartPrices = document.querySelectorAll(".cart_price b");
+
+            // Initialize total amount
+            var totalAmount = 0;
+
+            // Loop through each cart price and sum them up
+            cartPrices.forEach(function (price) {
+                totalAmount += parseFloat(price.textContent.replace("$", ""));
+            });
+
+            // Display the updated total amount
+            document.querySelector(".total_price strong:last-child").textContent = "$" + totalAmount.toFixed(2);
+        }
+    });
+</script>
+
+
 </body>
 
 </html>

@@ -23,6 +23,23 @@
     <!-- Main Stylesheets  -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var commonContentContainer = document.getElementById("commonContentContainer");
+            var xhr = new XMLHttpRequest();
+    
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        commonContentContainer.innerHTML = xhr.responseText;
+                    }
+                }
+            };
+    
+            xhr.open("GET", "common-section.html", true);
+            xhr.send();
+        });
+    </script>
 
 </head>
 
@@ -126,52 +143,10 @@
         </div>
     </div>
     <!-- /Mobile Search-field -->
-
+    
     <!--============== Side-bar Section ==============-->
     <aside id="sidebar">
-        <div class="sidebar_head">
-            <h5 class="mb-0"><i class="bi bi-person-circle me-2"></i> Hello, Log in</h5>
-            <div class="close_btn sidebar_close" title="Close">
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-
-        <div class="sidebar_body">
-            <div class="drop_down">
-                <div class="d-flex justify-content-between align-items-center drop_down_head">
-                    <span><i class="bi bi-camera me-2"></i> All Products</span>
-                    <i class="bi bi-plus"></i>
-                </div>
-                <ul class="mt-2 drop_down_body">
-                    <li><a href="#popular">DSLR Cameras</a></li>
-                    <li><a href="#popular">Mirrorless Cameras</a></li>
-                    <li><a href="#popular">Action Cameras</a></li>
-                    <li><a href="#popular">Compact Cameras</a></li>
-                    <li><a href="#popular">Camcorders</a></li>
-                    <li><a href="#popular">Lenses</a></li>
-                    <li><a href="#popular">Accessories</a></li>
-                </ul>
-            </div>
-
-            <ul class="mb-0 ps-0 sidebar_list">
-                <li><i class="bi bi-bag-check me-2"></i> <a href="cart.html">My Orders</a></li>
-                <li><i class="bi bi-heart me-2"></i> <a href="javascript:void(0);">My Wishlist</a></li>
-                <li><i class="bi bi-person me-2"></i> <a href="javascript:void(0);">My Account</a></li>
-                <li><i class="bi bi-geo-alt me-2"></i> <a href="javascript:void(0);">Order Tracking</a></li>
-                <li><i class="bi bi-headset me-2"></i> <a href="javascript:void(0);">Help & Support</a></li>
-            </ul>
-        </div>
-
-        <div class="sidebar_foot">
-            <p class="mb-0">
-                &#169;
-                <script>
-                    document.write(new Date().getFullYear() + ' ');
-                </script>
-                Camera Store. All Rights Reserved.
-            </p>
-        </div>
+        <div id="commonContentContainer"></div>
     </aside>
     <!-- /Side-bar Section -->
 

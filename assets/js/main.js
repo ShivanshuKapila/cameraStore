@@ -195,6 +195,7 @@ $(document).ready(function() {
             }
         })
     }
+
     $(".product_close").click(function() {
         s.removeClass("overflow_hide"),
         a.removeClass("view")
